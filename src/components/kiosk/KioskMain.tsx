@@ -40,8 +40,8 @@ function KioskMain() {
                 <ProductList products={products} addToCart={addToCart}></ProductList>
             </div>
 
-            <div className='w-1/3 bg-amber-950 m-2 p-2'>
-                <CartDiv></CartDiv>
+            <div className='w-1/3 bg-fuchsia-200 m-2 p-2'>
+                <CartDiv cartItems = {cartItems}></CartDiv>
             </div>
         </div>
     );

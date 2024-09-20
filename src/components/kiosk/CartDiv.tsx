@@ -1,7 +1,27 @@
+import {ICartItem} from "../../types/kiosk.ts";
+import {ReactElement} from "react";
 
-function CartDiv() {
+
+interface CartDivProps {
+    cartItems: ICartItem[]
+}
+
+function CartDiv({cartItems}: CartDivProps): ReactElement {
+
+    console.log(cartItems)
+
+    const listLI = cartItems.map(item => {
+        const {product, qty} = item
+        return <li key={product.pid}> {product.pname} : {qty}</li>
+    })
+
+
     return (
-        <div></div>
+        <div>
+            <ul>
+                {listLI}
+            </ul>
+        </div>
     );
 }
 
