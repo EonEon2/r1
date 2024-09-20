@@ -33,6 +33,19 @@ function KioskMain() {
 
     }
 
+    // 수량변경 버튼
+    const changeQty = (pid:number, qty:number):void => {
+
+        const target : ICartItem | undefined = cartItems.find(item => {
+            return item.product.pid === pid
+        })
+
+        if(!target) {return}
+
+        target.qty += qty
+        setCartItems([...cartItems])
+
+    }
 
     return (
         <div className='w-full h-full p-3 flex'>
@@ -41,7 +54,7 @@ function KioskMain() {
             </div>
 
             <div className='w-1/3 bg-fuchsia-200 m-2 p-2'>
-                <CartDiv cartItems = {cartItems}></CartDiv>
+                <CartDiv cartItems={cartItems} changeQty={changeQty}></CartDiv>
             </div>
         </div>
     );
