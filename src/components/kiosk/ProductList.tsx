@@ -12,7 +12,7 @@ function ProductList({products}: ProductListProps): JSX.Element {
     const productLI = products.map((product: IProduct) => { // 람다식에 {} 이면 return
         const {pid, pname, price, img} = product; //
         return (
-            <li key={pid}>
+            <li className='border-2 w-1/4' key={pid}>
                 {img && <img src={img} alt={pname} />}
                 {pname} - {price}
             </li>
@@ -21,7 +21,7 @@ function ProductList({products}: ProductListProps): JSX.Element {
 
     return (
         <div>
-            <ul>
+            <ul className='flex flex-wrap'>
                 {productLI}
             </ul>
         </div>
