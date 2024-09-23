@@ -15,7 +15,7 @@ function TodoIndex():ReactElement {
     return (
         <div className='flex flex-col'>
             <TodoInput changePage ={changePage}></TodoInput>
-            <TodoList pageNum={page} refresh={refresh}></TodoList>
+            <TodoList pageNum={page} refresh={refresh} changePage ={changePage}></TodoList>
         </div>
     );
 }

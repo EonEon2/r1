@@ -14,5 +14,6 @@ export interface IPageResponse { // 재사용성을 높이기 위해 제네릭�
     first : boolean,
     last : boolean,
     size : number,
+    totalPages: number
 
 }

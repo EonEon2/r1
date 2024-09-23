@@ -2,6 +2,7 @@ import React, {ReactElement, useEffect, useState} from "react";
 import {IPageResponse, ITodo} from "../../types/todo.ts";
 import {getTodoList} from "../../api/todoAPI.ts";
 import LoadingComponent from "../common/LoadingComponent.tsx";
+import PageComponent from "../common/PageComponent.tsx";
 
 const initialState: IPageResponse = {
     content: [],
@@ -9,15 +10,17 @@ const initialState: IPageResponse = {
     last: false,
     number: 0,
     size: 0,
-    totalElements: 0
+    totalElements: 0,
+    totalPages: 0
 }
 
 interface TodoListProps {
     pageNum:number
     refresh:boolean
+    changePage: (p:number) => void
 }
 
-function TodoList({pageNum, refresh}:TodoListProps):ReactElement {
+function TodoList({pageNum, refresh, changePage}:TodoListProps):ReactElement {
 
     const [pageData, setPageData] = useState<IPageResponse>(initialState);
     const [loading, setLoading] = useState(false); // loading모듈
@@ -30,7 +33,7 @@ function TodoList({pageNum, refresh}:TodoListProps):ReactElement {
             setPageData(data)
             setTimeout(()=> {
                 setLoading(false) // 데이터 받고 로딩창꺼짐
-            }, 1000)
+            }, 600)
         })
 
     },[pageNum, refresh])
@@ -55,6 +58,9 @@ function TodoList({pageNum, refresh}:TodoListProps):ReactElement {
             <ul>
                 {TodoLI}
             </ul>
+            <div>
+                <PageComponent pageResponse={pageData} changePage={changePage}></PageComponent>
+            </div>
         </div>
     );
 }

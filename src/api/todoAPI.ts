@@ -12,6 +12,7 @@ export const getTodoList = async (page?: number, size?: number): Promise<IPageRe
 
     const res = await axios.get(`${host}/list?page=${pageValue}&size=${sizeValue}`)
 
+    console.log(res.data)
     return res.data
 
 
