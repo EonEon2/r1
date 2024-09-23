@@ -1,7 +1,7 @@
 // import MyHello from "./components/MyHello.tsx";
 // import Count1 from "./components/Count1.tsx";
 // import UserList from "./components/UserList.tsx";
-import KioskMain from "./components/kiosk/KioskMain.tsx";
+import TodoIndex from "./components/todo/TodoIndex.tsx";
 
 
 function App() {
@@ -13,7 +13,9 @@ function App() {
               Hello world!_!
           </h1>
 
-          <KioskMain></KioskMain>
+          <TodoIndex></TodoIndex>
+
+          {/*<KioskMain></KioskMain>*/}
 
           {/*<UserList></UserList>*/}
 
