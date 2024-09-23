@@ -1,6 +1,7 @@
-import {ReactElement, useEffect, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import {IPageResponse, ITodo} from "../../types/todo.ts";
 import {getTodoList} from "../../api/todoAPI.ts";
+import LoadingComponent from "../common/LoadingComponent.tsx";
 
 const initialState: IPageResponse = {
     content: [],
@@ -17,10 +18,15 @@ function TodoList():ReactElement {
     const [refresh, setRefresh] = useState(false); // 동일한 페이지를 선택했을때 잘 동작하도록
     const [pageData, setPageData] = useState<IPageResponse>(initialState);
 
+    const [loading, setLoading] = useState(false); // loading모듈
+
     useEffect(() => { // page || refresh의 값이 변경되면 메소드가 실행되도록
+
+        setLoading(true); // useEffect를 들어왔을때 로딩창 켜짐
 
         getTodoList(page).then(data => {
             setPageData(data)
+            setLoading(false); // 데이터 받고난 이후 로딩창 꺼짐
         })
 
     },[page, refresh])
@@ -40,7 +46,7 @@ function TodoList():ReactElement {
     return (
         <div>
             <div>Todo List</div>
-
+            {loading && <LoadingComponent/>}
             <ul>
                 {TodoLI}
             </ul>
