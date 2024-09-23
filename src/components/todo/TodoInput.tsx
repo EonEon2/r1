@@ -1,6 +1,8 @@
 import {ITodo} from "../../types/todo.ts";
 import {ChangeEvent, useState} from "react";
 import {postTodo} from "../../api/todoAPI.ts";
+import LoadingComponent from "../common/LoadingComponent.tsx";
+import ResultModal from "../common/ResultModal.tsx";
 
 
 const initState:ITodo = {
@@ -12,6 +14,8 @@ const initState:ITodo = {
 function TodoInput() {
 
     const [todo, setTodo] = useState<ITodo>(initState)
+    const [loading, setLoading] = useState(false);
+    const [resultData, setResultData] = useState<number>(0);
 
     const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
         // react는 1way이므로 input 처리할때 state를 따로따로 만들어줘야하므로 이러한 방법을 사용하지않고, 하나의 객체로 사용하기 위해서 해당 이벤트를 사용한다.
@@ -25,13 +29,26 @@ function TodoInput() {
     }
 
     const handleClick = () => {
+        setLoading(true)
+
         postTodo(todo).then(number => {
-            alert(number)
+            setLoading(false)
+            setResultData(number)
         })
+    }
+
+    const clearResult = ():void => {
+        setResultData(0)
+        setTodo(initState) // 내용초기화
     }
 
     return (
         <div className="flex flex-col space-y-4 w-96 mx-auto">
+
+            {loading && <LoadingComponent/>}
+
+            {resultData !== 0 && <ResultModal msg={`${resultData}번 등록완료`} callback={clearResult} /> }
+
             <label htmlFor="title" className="text-sm font-semibold text-gray-700">Title</label>
             <input
                 type="text"
